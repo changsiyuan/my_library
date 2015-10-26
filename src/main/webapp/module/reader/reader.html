@@ -1,0 +1,394 @@
+<html lang="en" ng-app="reader">
+    <head>
+        <title>我的图书馆!</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="../../basic/css/styles.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../lib/bootstrap-3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../lib/font-awesome-4.2.0/css/font-awesome.min.css">
+        <link href="../../lib/bootstrap-3.3.1/css/bootstrap.css" rel="stylesheet">
+        <link href="../../lib/bootstrap-3.3.1/css/offcanvas.css" rel="stylesheet">
+
+
+        <link rel="stylesheet" href="../../lib/jquery-ui-1.11.4/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../lib/ngTable-3.2/ng-table.css">
+
+        <style type="text/css">
+            .navbar {
+                border-radius: 0px;
+                font-size: 16px;
+                min-height: 60px;
+                margin-bottom: 0px;
+            }
+            .navbar-inverse {
+                background-color: #ffffff;
+                border-color: #ffffff;
+            }
+            .navbar-fixed-top {
+                top: 0;
+            }
+            .navbar-inverse .navbar-nav > li > a {
+                color: #000000;
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            .navbar-inverse .navbar-nav>li>a:hover {
+                color: #0033CC;
+                outline: none;
+                background-color: #EEE;
+            }
+            .container {
+                width: 1465px;
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+            .container-fluid{
+                padding-left: 0px;
+            }
+            #header{
+                position: fixed;
+
+            }
+            #container{
+                width: 1465px;
+                height:270px;
+                padding-left: 147px;
+                padding-right: 147px;
+            }
+            .slider {
+                border: 0px;
+                margin-top:0px;
+            }
+            #box0 {
+                margin: 0px auto;
+                padding: 10px;
+                width: 100%;
+                height: 450px;
+            }
+            #box1 {
+                width: 23%;
+                height: 180px;
+                float: left;
+                margin-left: 75px;
+                margin-right: 0px;
+                margin-top: 50px;
+                margin-bottom: 0px;
+                text-align: center;
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            #about-us{
+                width: 1465px;
+                height:1350px;
+                padding-left: 147px;
+                padding-right: 147px;
+                /*                background-color: #0099FF;*/
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#0099CC), to(#003399));   
+            }
+            #partner{
+                width: 1465px;
+                height:200px;
+            }
+            #content-us{
+                width: 1465px;
+                height:250px;
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#666633), to(#000000)); 
+                padding-left: 147px;
+                padding-right: 147px;
+            }
+            h2,h4,p,label,button{
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            [class*="h"]{
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            #word-in{
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+                color: #ffffff;
+                float: left;
+            }
+            #word-out{
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+                color: #ffffff;
+                float: left;
+                font-size: 16px;
+            }
+            .hero-unit {
+                padding: 60px;
+                margin-bottom: 30px;
+                font-size: 18px;
+                font-weight: 200;
+                line-height: 30px;
+                color: inherit;
+                background-color: rgb(238, 238, 238);
+                border-radius: 6px;
+                width: 1170px;
+                height: 314px;
+            }
+            .span4 {
+                width: 370px;
+            }
+            [class*="span"] {     
+                float: left;
+                min-height: 1px;
+                margin-left: 30px;
+            }
+            input{
+                border-radius: 5px;
+                border-top-width: 0px;
+                border-left-width: 0px;
+                width: 250px;
+                height: 40;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+        </style>
+
+        <style type="text/css">
+            #tfheader{
+                background-color: inherit;
+            }
+            #tfnewsearch{
+                float:right;
+                padding:20px;
+            }
+            .tftextinput{
+                margin: 0;
+                padding: 5px 15px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size:14px;
+                border:1px solid #0076a3; border-right:0px;
+                border-top-left-radius: 5px 5px;
+                border-bottom-left-radius: 5px 5px;
+            }
+            .tfbutton {
+                margin: 0;
+                padding: 5px 15px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size:14px;
+                outline: none;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                color: #ffffff;
+                border: solid 1px #0076a3; border-right:0px;
+                background: #0095cd;
+                background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+                background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+                border-top-right-radius: 5px 5px;
+                border-bottom-right-radius: 5px 5px;
+            }
+            .tfbutton:hover {
+                text-decoration: none;
+                background: #007ead;
+                background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+                background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+            }
+            /* Fixes submit button height problem in Firefox */
+            .tfbutton::-moz-focus-inner {
+                border: 0;
+            }
+            .tfclear{
+                clear:both;
+            }
+        </style>
+    </head>
+
+    <body ng-controller="ReaderCtrl">
+        <!--        <div id="loading">
+                    <img id="loading-image" src="images/loading.gif" alt="Loading..." />
+                </div>-->
+        <div class="navbar navbar-inverse  navbar-fixed-top">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <div class="navbar-header responsive-logo">
+                    <a href="/hashlibrary/#" class="navbar-brand">
+                        <img src="../../images/nation-lib.png" height="40px;">
+                    </a>
+                </div>
+            </div> 
+            <div class="col-md-5"> 
+            </div>
+            <div class="col-md-3">
+                <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" id="site-navigation" style="padding-top: 50px;">
+                    <ul class="nav navbar-nav navbar-right responsive-nav main-nav-list" >
+                        <li><a href="/hashlibrary/#">首页</a></li>
+                        <li><a class="scroll" href="#about-us" data-toggle="modal" data-target="#newTypeModal">用户注册</a></li>
+                        <li ng-if="!judgeLogin"><a class="scroll" href="#about-us" data-toggle="modal" data-target="#userLogin">用户登录</a></li>
+                        <li ng-if="judgeLogin == 1" ng-click="UserLogout()"><a href="">退出登录"{{current_UserName}}"</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <hr size="1" width="100%" color="black" noshade="noshade" style="margin-top: 0px; "/>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <center>
+                    <div class="hero-unit">
+                        <div ng-if="!judgeLogin">
+                            <h1>欢迎您！请登录！</h1>
+                        </div>
+                        <div ng-if="judgeLogin == 1">
+                            <h1>欢迎您! {{current_UserName}}!</h1>
+                        </div>
+                        <p>国家数字图书馆欢迎您的来访！<br>从现在开始，您就可以随心所欲地查询自己喜欢的书籍了！
+                            当然，您还可以预约借书，您再也不用担心喜爱的书籍被别人借走了！<br>国家数字图书馆竭诚为您服务！</p>
+                        <!--                        <form id="search" action="/search" method="get" autocomplete="off">
+                                                    <div id="tfheader">
+                                                        <form id="tfnewsearch" method="get" action="http://www.google.com">
+                                                            <input type="text" class="tftextinput" name="q" size="21" maxlength="120">
+                                                            <input type="submit" value="search" class="tfbutton">
+                                                        </form>
+                                                        <div class="tfclear"></div>
+                                                    </div>
+                                                </form>-->
+                        <!--                        <form class="form-search">
+                                                    <input type="text" class="input-medium search-query" id="q">
+                                                    <button type="submit" class="btn" ng-click="searchBook()">Search</button>
+                                                </form>-->
+                        <a href="book.html"><button type="submit" class="btn-read" style="width: 120;height: 50;font-size: 16px;border-radius: 6px;border-width: 0px; 
+                                                    background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));">开始悦读</button></a>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="span4">
+                            <h2><i class="fa fa-info-circle"></i>  我的信息</h2>
+                            <p>您可以在这里查询自己所借的图书信息，也可以查看和修改个人简介、登录密码。
+                                当然您也可以在这里添加个性化的需求设置，让您的个人图书馆更加丰富多彩！ </p>
+                            <p ng-if="!judgeLogin"><a class="btn" ng-click="UserLogoutHint()">View details »</a></p>
+                            <p ng-if="judgeLogin == 1"><a class="btn" href="info.html">View details »</a></p>
+                        </div>
+                        <div class="span4">
+                            <h2><i class="fa fa-book"></i>  我要借书</h2>
+                            <p>如果您想要借阅图书，请单击这里查看图书的馆藏信息。如果馆藏图书有剩余，您就可以轻点鼠标实现预约借阅，
+                                这样您就不用担心自己喜欢的图书被别人抢走了。当然，借阅图书仅限大厅藏书，古籍、古装版图书、部分馆藏史料不能借阅，
+                                您可以到国家图书馆一层藏书室申请阅览。 </p>
+                            <p ng-if="!judgeLogin"><a class="btn" ng-click="UserLogoutHint()">View details »</a></p>
+                            <p ng-if="judgeLogin == 1"><a class="btn" href="book.html">View details »</a></p>
+                        </div>
+                        <div class="span4">
+                            <h2><i class="fa fa-cloud-download"></i>  我要下载</h2>
+                            <p>感觉图书很好，又不想读纸质版书籍？这里为您准备了上千种的电子版图书免费下载。轻点鼠标，
+                                您就可以将喜欢的电子书下载到手机或平板电脑，实现轻松阅读。</p>
+                            <p ng-if="!judgeLogin"><a class="btn" ng-click="UserLogoutHint()">View details »</a></p>
+                            <p ng-if="judgeLogin == 1"><a class="btn" href="download.html">View details »</a></p>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+        <hr />
+    <center>
+        <p>© Author by Siyuan 2015</p>
+    </center>
+
+
+    <!--用户注册弹出框-->
+    <div class="modal fade" id="newTypeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> 注册用户</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="StudentNum">学号</label>
+                        <input type="text" ng-model="newStudentNum" id="StudentNum" class="form-control" placeholder="请输入您的学号，注册后可以用学号登录">
+                        <label for="UserName">用户名</label>
+                        <input type="text" ng-model="newUserName" id="UserName" class="form-control" placeholder="请输入您的用户名，注册后用户名会显示在您的主页">
+                        <label for="Password">密码</label>
+                        <input type="password" ng-model="newPassword" id="Password" class="form-control" placeholder="请设定您的密码">
+                        <label for="AgainPassword">重复密码</label>
+                        <input type="password" ng-model="newAgainPassword" id="AgainPassword" class="form-control" placeholder="为确保安全，请再次输入您的密码">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button"  ng-click="add_user()" class="btn btn-primary" data-dismiss="modal">注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--用户登录弹出框-->
+    <div class="modal fade" id="userLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> 用户登录</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="StudentNum">学号</label>
+                        <input type="number" ng-model="LoginStudentNum" id="StudentNum" class="form-control" 
+                               placeholder="请用您的学号登录">
+                        <label for="Password">密码</label>
+                        <input type="password" ng-model="LoginPassword" id="Password" class="form-control" 
+                               placeholder="请输入您的密码">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button"  ng-click="userLogin()" class="btn btn-primary" data-dismiss="modal">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--登录弹出框  试验-->
+    <!--        <div class="modal fade" id="userLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> 用户登录</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form action="api/account/login">
+                                <label for="StudentNum">学号</label>
+                                <input type="number" ng-model="LoginStudentNum" id="StudentNum" name="StudentNum" class="form-control" 
+                                       placeholder="请用您的学号登录">
+                                <label for="Password">密码</label>
+                                <input type="password" ng-model="LoginPassword" id="Password" name="Password" class="form-control" 
+                                       placeholder="请输入您的密码">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-primary">登录</button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+
+    <script type="text/javascript" src="../../lib/jquery-2.1.3/jquery-2.1.3.js"></script> 
+    <script type="text/javascript" src="../../lib/jquery-2.1.3/jquery.min.js"></script> 
+    <script type="text/javascript" src="../../lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="../../lib/bootstrap-3.3.1/js/bootstrap.js"></script>
+
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-route.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-resource.js"></script>
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular.min.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-animate.min.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-touch.min.js"></script>
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-cookies.js"></script>
+
+    <script type="text/javascript" src="../../lib/TweenMax.min.js"></script>
+
+    <!--slide-->
+    <script type="text/javascript" src="../../website.js"></script>
+
+    <!--reader control-->
+    <script type="text/javascript" src="controller.js"></script>
+    <script type="text/javascript" src="service.js"></script>
+</body>
+</html>

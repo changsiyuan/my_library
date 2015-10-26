@@ -1,0 +1,94 @@
+.box-header {
+    background: #f2f2f2;
+    background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgi��pZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==");
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fafafa), color-stop(100%, #f2f2f2));
+    background-image: -webkit-linear-gradient(top, #fafafa, #f2f2f2);
+    background-image: -moz-linear-gradient(top, #fafafa, #f2f2f2);
+    background-image: -o-linear-gradient(top, #fafafa, #f2f2f2);
+    background-image: linear-gradient(top, #fafafa,#f2f2f2);
+    text-shadow: 0 1px white;
+    border-bottom: 1px solid #cdcdcd;
+    color: #555;
+}
+
+
+.fa-fw {
+    width: 1.28571429em;
+    text-align: center;
+}
+
+.fa-fw {
+    width: 1.28571429em;
+    text-align: center;
+}
+
+nav ul span.menu-item-parent {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.box{
+
+    -webkit-box-shadow: 0 2px 2px -2px #cccccc;
+    -moz-box-shadow: 0 2px 2px -2px #cccccc;
+    box-shadow: 0 2px 2px -2px #cccccc;
+    background: #fbfbfb;
+    border: 1px solid #cdcdcd;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+    height: 200px;
+    width: 300px;
+}
+
+
+.boxexample{
+    -webkit-box-shadow: 0 2px 2px -2px #cccccc;
+    -moz-box-shadow: 0 2px 2px -2px #cccccc;
+    box-shadow: 0 2px 2px -2px #cccccc;
+    background: #fbfbfb;
+    border: 1px solid #cdcdcd;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+    height: 240px;
+    width: 630px;
+}
+
+.boxexample1{
+    -webkit-box-shadow: 0 2px 2px -2px #cccccc;
+    -moz-box-shadow: 0 2px 2px -2px #cccccc;
+    box-shadow: 0 2px 2px -2px #cccccc;
+    background: #fbfbfb;
+    border: 1px solid #cdcdcd;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 18px;
+    height: 92px;
+    width: 552px;
+}
+
+
+ul.box-toolbar {
+    list-style: none outside none;
+    margin: 0;
+    float: right;
+    margin-top: 7px;
+    padding-right: 9px;
+}
+
+.box-toolbar > li {
+    color: #636363;
+    float: left;
+    line-height: 37px;
+    margin-left: 9px;
+    position: relative;
+}
+
+
+

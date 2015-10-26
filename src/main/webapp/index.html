@@ -1,0 +1,431 @@
+<html lang="en" ng-app="website">
+    <head>
+        <title>欢迎您来到国家图书馆!</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="basic/css/styles.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="lib/bootstrap-3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="lib/font-awesome-4.2.0/css/font-awesome.min.css">
+        <link href="lib/bootstrap-3.3.1/css/bootstrap.css" rel="stylesheet">
+        <link href="lib/bootstrap-3.3.1/css/offcanvas.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="lib/jquery-ui-1.11.4/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="lib/ngTable-3.2/ng-table.css">
+
+        <style type="text/css">
+            /*            .nav{
+                            height:77px;
+                            weight:1600px;
+                            background-color: #00ff00;
+                        }*/
+            .navbar {
+                border-radius: 0px;
+                font-size: 16px;
+                min-height: 60px;
+                margin-bottom: 0px;
+            }
+            .navbar-inverse {
+                background-color: #ffffff;
+                border-color: #ffffff;
+            }
+            .navbar-fixed-top {
+                top: 0;
+            }
+            .navbar-inverse .navbar-nav > li > a {
+                color: #000000;
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            .navbar-inverse .navbar-nav>li>a:hover {
+                color: #0033CC;
+                outline: none;
+                background-color: #EEE;
+            }
+            .container {
+                width: 1465px;
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+            .container-fluid{
+                padding-left: 0px;
+            }
+            #header{
+                position: fixed;
+
+            }
+            #container{
+                width: 1465px;
+                height:270px;
+                padding-left: 147px;
+                padding-right: 147px;
+            }
+            .slider {
+                border: 0px;
+                margin-top:0px;
+            }
+            #box0 {
+                margin: 0px auto;
+                padding: 10px;
+                width: 100%;
+                height: 450px;
+            }
+            #box1 {
+                width: 23%;
+                height: 180px;
+                float: left;
+                margin-left: 75px;
+                margin-right: 0px;
+                margin-top: 50px;
+                margin-bottom: 0px;
+                text-align: center;
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            #about-us{
+                width: 1465px;
+                height:1350px;
+                padding-left: 147px;
+                padding-right: 147px;
+                /*                background-color: #0099FF;*/
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#0099CC), to(#003399));   
+            }
+            #partner{
+                width: 1465px;
+                height:200px;
+            }
+            #content-us{
+                width: 1465px;
+                height:250px;
+                background:-webkit-gradient(linear, 0% 0%, 0% 100%,from(#666633), to(#000000)); 
+                padding-left: 147px;
+                padding-right: 147px;
+            }
+            h2,h4{
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            #word-in{
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+                color: #ffffff;
+                float: left;
+            }
+            #word-out{
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+                color: #ffffff;
+                float: left;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--        <div id="loading">
+                    <img id="loading-image" src="images/loading.gif" alt="Loading..." />
+                </div>-->
+        <div class="navbar navbar-inverse  navbar-fixed-top">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <div class="navbar-header responsive-logo">
+                    <a href="/hashlibrary/#" class="navbar-brand">
+                        <img src="images/nation-lib.png" height="40px;">
+                    </a>
+                </div>
+            </div> 
+            <div class="col-md-5"> 
+            </div>
+            <div class="col-md-3">
+                <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" id="site-navigation" style="padding-top: 50px;">
+                    <ul class="nav navbar-nav navbar-right responsive-nav main-nav-list" >
+                        <li><a href="/hashlibrary/#">首页</a></li>
+                        <li><a class="scroll" href="#about-us">国图简介</a></li>
+                        <li><a href="module/others/happyReading.html">阅读·悦读</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="row">
+                    <div ng-controller="MainCtrl" class="container slider">
+                        <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
+                             ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+                             ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+
+                        <a class="arrow prev" href="#" ng-click="nextSlide()"></a>
+                        <a class="arrow next" href="#" ng-click="prevSlide()"></a>
+                        <nav class="nav">
+                            <div class="wrapper">
+                                <ul class="dots">
+                                    <li class="dot" ng-repeat="slide in slides">
+                                        <a href="#" ng-class="{
+                                                    'active':isCurrentSlideIndex($index)}"
+                                           ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+
+                <div id="container" ng-controller="indexCtr">
+                    <div id="box0">
+                        <div id="box1">
+                            <a href="module/reader/reader.html" style="pull-right">
+                                <img src="images/people1.png">
+                            </a>
+                            <h3 style="font-size: 24px;	line-height:43px;font-weight:700;">
+                                <a class="color123" href="module/reader/reader.html">读者入口</a>
+                            </h3>
+                        </div>
+                        <div id="box1">
+                            <a href="module/admin/admin.html">
+                                <img src="images/people2.png">
+                            </a>
+                            <h3 style="font-size: 24px;	line-height:43px;font-weight:700;">
+                                <a class="color123" href="module/admin/admin.html">管理员入口</a>
+                            </h3>
+                        </div>
+                        <div id="box1">
+                            <a href="module/others/newBookFirstKnow.html">
+                                <img src="images/book.png">
+                            </a>
+                            <h3 style="font-size: 24px;	line-height:43px;font-weight:700;">
+                                <a class="color123" href="module/others/newBookFirstKnow.html">新书先知道</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="about-us">
+                    <center>
+                        <br>
+                        <h2 style="color:#FFFFFF">
+                            国家图书馆
+                        </h2>
+                        <h4 style="color:#FFFFFF">
+                            锲而舍之,朽木不折; 锲而不舍,金石可镂
+                        </h4>
+                        <br>
+                        <div style="width: 1065; height: 580px;">
+                            <img src="images/library-in.png" class="fadeIn">
+                        </div>
+                        <br><br>
+                        <!--                        <video src="video/movie.ogg"  width="320" height="240" controls="controls">
+                                                    Your browser does not support the video tag.
+                                                </video>-->
+                    </center>
+                    <div id="toggle">
+                        <div class="row">
+                            <div class="col-md-2" style="padding-right: 0px;">
+                                <img src="images/us1.png">
+                            </div>
+                            <div class="col-md-3" id="word-in" style="margin-top:20px;">
+                                中国国家图书馆，是亚洲规模最大的图书馆，居世界国家图书馆第三位，馆藏书籍3119万册，其中古籍善本有200余万册。
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <strong id="word-out" style="margin-top:10px;">馆藏资源</strong><br>
+                                <hr size="1" width="100%" color="black" noshade="noshade" />
+                                <div id="word-in">
+                                    中国国家图书馆馆藏丰富，品类齐全，古今中外，集精结粹。作为国家藏书机构，中国国家图书馆依法接收中国大陆
+                                    各出版社送缴收藏的出版样书，此外还收藏中国大陆的非正式出版物，例如各高校的博士学位论文均在中国国家图书
+                                    馆的收藏之列。
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                            <div class="col-md-2" style="padding-right: 0px;">
+                                <img src="images/us3.png">
+                            </div>
+                            <div class="col-md-3" id="word-in" style="margin-top:20px;">
+                                中国国家图书馆总馆占地7.24公顷，建筑面积14万平方米，主楼为双塔形高楼，采用双重檐形式，孔雀蓝琉璃瓦大屋顶，
+                                ，通体以蓝色为基调。
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <strong id="word-out" style="margin-top:10px;">文化活动</strong><br>
+                                <hr size="1" width="100%" color="black" noshade="noshade" />
+                                <div id="word-in">
+                                    中国国家图书馆举办了2013年春节系列文化活动，主要内容为
+                                    “年画中的记忆——国家图书馆藏年画精品暨国家级非物质文化遗产年画项目代表性传承人作品展”。
+                                    此外，国家图书馆启动了系列公益文化活动，颁布了第九届文津图书奖，
+                                    同时还推出集萃文津图书奖第一届至第八届获奖图书专家书评的“又见文津”有声读物。
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="row">
+                            <div class="col-md-2" style="padding-right: 0px;">
+                                <img src="images/us2.png">
+                            </div>
+                            <div class="col-md-3" id="word-in" style="margin-top:20px;">
+                                中国国家图书馆馆藏丰富，品类齐全，古今中外，集精结粹。作为国家藏书机构，
+                                中国国家图书馆依法接收中国大陆各出版社送缴收藏的出版样书。                        
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5">
+                                <strong id="word-out" style="margin-top:10px;">入馆须知</strong><br>
+                                <hr size="1" width="100%" color="black" noshade="noshade" />
+                                <div id="word-in">
+                                    国家图书馆接待年满十六周岁以上的读者（少年儿童图书馆接待六至十五周岁的少年儿童）；
+                                    双休日及国家法定节假日可接待中学生及在家长陪同下的少年儿童参观；全年接待中小学校组织的集体参观。
+                                    进入阅览室、服务点须持国家图书馆读者卡。年满十六周岁以上的中国公民可以凭第二代身份证进入开架阅览室阅览，
+                                    少年儿童凭国家图书馆少年儿童图书馆读者卡进入少年儿童图书馆。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="partner">
+                    <center>
+                        <br>
+                        <h2 style="color:#000000">
+                            合作伙伴
+                        </h2>
+                    </center>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="http://www.haohandata.com.cn/"><img src="images/haohan.png"></a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="http://www.tsinghua.edu.cn/publish/newthu/index.html"><img src="images/qinghua.png"></a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="http://www.pku.edu.cn/"><img src="images/beida.png"></a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="http://www.bupt.edu.cn/"><img src="images/bupt.png"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content-us">
+                    <center>
+                        <br>
+                        <h2 style="color:#FFFFFF">
+                            联系我们
+                        </h2>
+                    </center>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <center>
+                                <img src="images/footer1.png">
+                                <h4 style="color:#939393;">
+                                    北京市海淀区中关村南大街33号<br>100081
+                                </h4>
+                            </center>
+                        </div>
+                        <div class="col-md-4">
+                            <center>
+                                <img src="images/footer2.png">
+                                <h4 style="color:#939393;">
+                                    Tel: (+86 10)88545426 88545360<br>E-mail：webmaster@nlc.gov.cn 
+                                </h4>
+                            </center>
+                        </div>
+                        <div class="col-md-4">
+                            <center>
+                                <img src="images/footer3.png">
+                                <h4 style="color:#939393;">
+                                    Copyright @ 2015<br>国家图书馆<br>author by: Siyuan
+                                </h4>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="lib/jquery-2.1.3/jquery-2.1.3.js"></script> 
+        <script type="text/javascript" src="lib/jquery-2.1.3/jquery.min.js"></script> 
+        <script type="text/javascript" src="lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+        <script type="text/javascript" src="lib/bootstrap-3.3.1/js/bootstrap.js"></script>
+
+        <script type="text/javascript" src="lib/angular-1.3.3/angular.js"></script>
+        <script type="text/javascript" src="lib/angular-1.3.3/angular-route.js"></script>
+        <script type="text/javascript" src="lib/angular-1.3.3/angular.min.js"></script>
+        <script type="text/javascript" src="lib/angular-1.3.3/angular-animate.min.js"></script>
+        <script type="text/javascript" src="lib/angular-1.3.3/angular-touch.min.js"></script>
+
+        <script type="text/javascript" src="lib/TweenMax.min.js"></script>
+
+        <!--slide-->
+        <script type="text/javascript" src="website.js"></script>
+
+        <!--reader 文件夹的js文件-->        
+<!--        <script type="text/javascript" src="module/reader/controller.js"></script>
+        <script type="text/javascript" src="module/reader/service.js"></script>-->
+
+        <!--smooth scrolling to a point in the page-->
+        <script src="basic/js/skip.js"></script>
+        <script type="text/javascript">
+                    $.browser.chrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase());
+
+                    $(document).ready(function($) {
+                        $(".scroll").click(function(event) {
+                            event.preventDefault();
+                            if ($.browser.chrome) {
+                                $('html,body').animate({scrollTop: $(this.hash).offset().top - 50}, 1000);
+                            } else {
+                                $('html,body').animate({scrollTop: $(this.hash).offset().top - 100}, 1000);
+                            }
+                        });
+                    });
+        </script>
+
+        <!--fade in picture-->
+        <!--        <script type="text/javascript">
+                    $(".fadeIn").click(function() {
+                        $(this).hide().fadeIn(2000);
+                    });
+                </script>-->
+        <!--        <script>
+                    $(window).scroll(function() {
+                        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                            alert("bottom!");
+                        }
+                    });
+                </script>-->
+        <script>
+            var target = $("#box0").offset().top;
+            var picture = $(".fadeIn");
+            var interval = setInterval(function() {
+                if ($(window).scrollTop() < target) {
+                    picture.hide();   //当用户尚未scroll到特定位置时，图片不显示
+                } else {
+                    picture.hide().fadeIn(2000);  //当用户scroll到特定位置时，图片淡入显示
+                    clearInterval(interval);      //当用户scroll到特定位置后，不在执行此函数
+                }
+            }, 250);  //每250毫秒执行此函数
+        </script>
+
+        <!--animate of words-->
+        <script>
+            var target1 = $(".fadeIn").offset().top;
+
+            var interval1 = setInterval(function() {
+                if ($(window).scrollTop() < target1 + 150) {
+                    $("#toggle").hide();     //当用户未滑动到绑定的标签前，文字部分隐藏；
+                } else {
+                    $("#toggle").hide().toggle("drop");   //当用户滑动到绑定的标签时，文字以drop动画形式弹出
+                    clearInterval(interval1);   //文字弹出后，不再执行此函数
+                }
+            }, 250);  //每250毫秒执行此函数
+        </script>
+
+        <!--loading picture-->
+        <!--        <script language="javascript" type="text/javascript">
+                    window.onload = function() {
+                        document.getElementById("loading").style.display = "none"
+                    }
+        //            
+        //            $(window).load(function() {
+        //                $('#loading').hide();
+        //            });
+                </script>-->
+    </body>
+</html>

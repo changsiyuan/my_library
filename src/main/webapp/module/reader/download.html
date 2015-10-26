@@ -1,0 +1,150 @@
+<html lang="en" ng-app="reader">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>下载中心</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="../../lib/bootstrap-3.3.1/css/bootstrap.css" rel="stylesheet">
+        <link href="../../basic/css/star-rating.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../lib/font-awesome-4.2.0/css/font-awesome.min.css">
+        <link href="../../lib/bootstrap-3.3.1/css/bootstrap-responsive.css" rel="stylesheet">
+        <style>
+            body{
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            #navbar > li > a {
+                color: #000;
+                background-color: #fff;
+                font-size: 16px;
+            }
+            #navbar > li > a:hover {
+                color: #0033CC;
+                background-color: #cccccc;
+                font-size: 16px;
+            }
+            #q{
+                width: 200px;
+                height: 35px;
+                padding-left: 10px;
+                padding-right: 10px;
+                border-radius: 5px;
+                border-width: 0px;
+                background-color: #cccccc;
+            }
+            .span4{
+                width: 345px;
+                height: 397px;
+            }
+        </style>
+    </head>
+
+
+    <body>
+        <div class="container" ng-controller="ReaderCtrl">
+            <div class="header clearfix">
+                <nav>
+                    <ul class="nav nav-pills pull-right" id="navbar" style="margin-top: 10px;">
+                        <li role="presentation" class="active"><a href="/hashlibrary/#">首页</a></li>
+                        <li role="presentation"><a href="book.html">我要借书</a></li>
+                        <li role="presentation" ng-if="!judgeLogin"><a class="scroll" href="#about-us" data-toggle="modal" data-target="#userLogin">用户登录</a></li>
+                        <li role="presentation" ng-if="judgeLogin == 1" ng-click="UserLogout()"><a href="reader.html">退出登录"{{current_UserName}}"</a></li>
+                    </ul>
+                </nav>
+                <h3 class="text-muted">国家电子图书馆下载中心</h3>
+            </div>
+
+            <div class="jumbotron">
+                <h1>欢迎您! {{current_UserName}}!</h1>
+                <p class="lead">
+                    欢迎来到国家电子图书馆下载中心！<br>
+                    您可以在这里下载最新版的电子图书，点击图书下方的“我要下载”即可。<br>
+                    足不出户，畅想悦读！
+                </p>
+                <!--                <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>-->
+                <form class="form-search">
+                    <input type="text" class="input-medium search-query" id="q">
+                    <button type="submit" class="btn score" ng-click="searchBooks()">Search</button>
+                </form>
+            </div>
+
+            <div class="row-fluid">
+                <div ng-repeat="book in books track by $index">
+                    <div class="span4" style="margin-right: 13px;">
+                        <h2>{{book.bookName}}</h2>
+                        <p>{{book.bookAuthor}}&nbsp;&nbsp;&nbsp;{{book.bookPress}}</p>
+                        <div>
+                            评分&nbsp;&nbsp;<i class="fa fa-heart" ng-repeat="score in getNumber(book.bookScore) track by $index" style="color: #337ab7"></i>
+                        </div>
+                        <p>{{book.bookDescription}}</p>
+                        <!--                            <p ng-if="!judgeLogin"><a class="btn" ng-click="UserLogoutHint()" style="padding-left: 0px;">我要借阅 »</a></p>
+                                                    <p ng-if="judgeLogin == 1" ng-click="bookIndex($index)"><a class="btn" style="padding-left: 0px;" 
+                                                                                                               data-toggle="modal" data-target="#DownloadBook">我要借阅 »</a></p>-->
+                        <a href="../../books/Beginning Java EE 7.pdf" download><i class="fa fa-download"></i>&nbsp;我要下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+    <center>
+        <p>© Author by Siyuan 2015</p>
+    </center>
+
+
+    <!--借阅图书弹出框-->
+    <div class="modal fade" id="DownloadBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-download"></i> 确认下载信息</h4>
+                </div>
+                <div class="modal-body">
+                    确认下载这本图书？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消下载</button>
+                    <a href="../../books/Beginning Java EE 7.pdf" download>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">确认下载</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+
+    <script type="text/javascript" src="../../lib/jquery-2.1.3/jquery-2.1.3.js"></script> 
+    <script type="text/javascript" src="../../lib/jquery-2.1.3/jquery.min.js"></script> 
+    <script type="text/javascript" src="../../lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="../../lib/bootstrap-3.3.1/js/bootstrap.js"></script>
+
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-route.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-resource.js"></script>
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular.min.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-animate.min.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-touch.min.js"></script>
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-cookies.js"></script>
+
+    <script type="text/javascript" src="../../lib/TweenMax.min.js"></script>
+
+    <!--slide-->
+    <script type="text/javascript" src="../../website.js"></script>
+
+    <!--reader control-->
+    <script type="text/javascript" src="controller.js"></script>
+    <script type="text/javascript" src="service.js"></script>
+
+</body></html>

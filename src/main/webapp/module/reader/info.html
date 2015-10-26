@@ -1,0 +1,447 @@
+<html lang="en" ng-app="reader">
+    <head>
+        <meta charset="utf-8">
+        <title>国家图书馆-我的信息</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link href="../../lib/bootstrap-3.3.1/css/bootstrap.css" rel="stylesheet">
+        <link href="../../basic/css/star-rating.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" media="screen" href="../../lib/font-awesome-4.2.0/css/font-awesome.min.css">
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            .sidebar-nav {
+                padding: 9px 0;
+            }
+
+            @media (max-width: 980px) {
+                /* Enable use of floated navbar text */
+                .navbar-text.pull-right {
+                    float: none;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+            }
+            .navbar {
+                border-radius: 0px;
+                font-size: 16px;
+                min-height: 60px;
+                margin-bottom: 0px;
+                width: 1600px;
+                height: 64px;
+            }
+            .navbar-inverse {
+                background-color: #ffffff;
+                border-color: #ffffff;
+            }
+            .navbar-fixed-top {
+                top: 0;
+            }
+            .navbar-inverse .navbar-nav > li > a {
+                color: #000000;
+                font-family: Arial,'Microsoft YaHei', sans-serif !important;
+            }
+            .navbar-inverse .navbar-nav>li>a:hover {
+                color: #0033CC;
+                outline: none;
+                background-color: #EEE;
+            }
+            .sidebar-nav {
+                padding: 9px 0;
+            }
+            .well {
+                min-height: 20px;
+                padding: 19px;
+                margin-bottom: 20px;
+                background-color: rgb(245, 245, 245);
+                border: 1px solid rgb(227, 227, 227);
+                border-image-source: initial;
+                border-image-slice: initial;
+                border-image-width: initial;
+                border-image-outset: initial;
+                border-image-repeat: initial;
+                border-radius: 4px;
+                -webkit-box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 1px inset;
+                box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 1px inset;
+            }
+            .nav-list {
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-bottom: 0px;
+            }
+            .nav {
+                margin-bottom: 20px;
+                margin-left: 0px;
+                list-style: none;
+            }
+            ul, ol {
+                padding: 0px;
+                margin: 0px 0px 10px 25px;
+            }
+            ul, menu, dir {
+                display: block;
+                list-style-type: disc;
+                -webkit-margin-before: 1em;
+                -webkit-margin-after: 1em;
+                -webkit-margin-start: 0px;
+                -webkit-margin-end: 0px;
+                -webkit-padding-start: 40px;
+            }
+            .nav-list > li > a, .nav-list .nav-header {
+                margin-right: -15px;
+                margin-left: -15px;
+                text-shadow: rgba(255, 255, 255, 0.498039) 0px 1px 0px;
+            }
+            .nav-header {
+                display: block;
+                padding: 3px 15px;
+                font-size: 11px;
+                font-weight: bold;
+                line-height: 20px;
+                color: rgb(153, 153, 153);
+                text-shadow: rgba(255, 255, 255, 0.498039) 0px 1px 0px;
+                text-transform: uppercase;
+            }
+            input{
+                margin-left: 0;
+                width: 200px;
+                height: 35px;
+                padding-left: 10px;
+                padding-right: 10px;
+                border-radius: 5px;
+                border-width: 0px;
+                background-color: #cccccc;
+            }
+            .span4{
+                width: 353px;
+                height: 364px;
+            }
+        </style>
+        <link href="../../lib/bootstrap-3.3.1/css/bootstrap-responsive.css" rel="stylesheet">
+    </head>
+
+    <body ng-controller="ReaderCtrl">
+        <div class="navbar navbar-inverse  navbar-fixed-top">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <div class="navbar-header responsive-logo">
+                    <a href="/hashlibrary/#" class="navbar-brand">
+                        <img src="../../images/nation-lib.png" height="40px;">
+                    </a>
+                </div>
+            </div> 
+            <div class="col-md-3"> 
+            </div>
+            <div class="col-md-3">
+                <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" id="site-navigation" style="padding-top: 5px;">
+                    <ul class="nav navbar-nav navbar-right responsive-nav main-nav-list" >
+                        <li><a href="/hashlibrary/#">首页</a></li>
+                        <!--                        <li><a class="scroll" href="#about-us" data-toggle="modal" data-target="#newTypeModal">用户注册</a></li>-->
+                        <li><a class="scroll" href="book.html" >我要借书</a></li>
+                        <li ng-if="!judgeLogin"><a class="scroll" href="#about-us" data-toggle="modal" data-target="#userLogin">用户登录</a></li>
+                        <li ng-if="judgeLogin == 1" ng-click="UserLogout()"><a href="reader.html">退出登录"{{current_UserName}}"</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <hr size="1" width="100%" color="black" noshade="noshade" style="margin-top: 10px; "/>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span3">
+                    <div class="well sidebar-nav" style="padding:0px;">
+                        <ul class="nav nav-list">
+                            <li class="nav-header" style="font-size: 14px;">我的基本信息</li>
+                            <li class="active score"><a href="">用户名：{{current_UserName}}</a></li>
+                            <li class="active score"><a href="">性别：
+                                    <i class="fa fa-male" ng-if="current_userSex == 'man'"></i>
+                                    <i class="fa fa-female" ng-if="current_userSex == 'woman'"></i>&nbsp;{{current_userSex}}</a></li>
+                            <li class="score"><a href="">学院：{{current_userSchool}}</a></li>
+                            <li class="score"><a href="">个人描述：{{current_userDescription}}</a></li>
+                            <li ><a href="" class="score">手机号：{{current_phoneNumber}}</a></li>
+                            <button type="button" class="btn btn-primary" style="margin-left: 200px;" data-toggle="modal" data-target="#alterUserInfo">
+                                <i class="fa fa-gear"></i>&nbsp;我要修改</button>
+
+                            <li class="nav-header" style="font-size: 14px;">我的登录信息</li>
+                            <li><a href="" class="score">我的学号：{{current_UserNum}}</a></li>
+                            <li><a href="" class="score">密码管理：
+                                    <button type="button" class="btn btn-primary" style="margin-left: 10px;" data-toggle="modal" data-target="#passwdStrength">
+                                        <i class="fa fa-adjust"></i>&nbsp;强度验证</button>
+                                    <button type="button" class="btn btn-primary" style="margin-left: 190px;margin-top: -32px;" data-toggle="modal" data-target="#alterPassword">
+                                        <i class="fa fa-pencil"></i>&nbsp;修改密码</button>
+                                </a>
+                            </li>
+
+                            <li class="nav-header" style="font-size: 14px;">我的借阅信息</li>
+                            <li><a href="#" class="score" ng-click="borrowBook(current_UserNum)">借阅数量: {{currentUser_BorrowBookNum}}</a></li>
+                            <li><a href="#" class="score" ng-click="dueBook(current_UserNum)">催还数量: {{currentUser_DueBookNum}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span9">
+                    <div class="hero-unit">
+                        <h1 ng-if="!judgeLogin">您好！请登录！</h1>
+                        <h1 ng-if="judgeLogin == 1">您好！{{current_UserName}}</h1>
+                        <p>欢迎您来到国家数字图书馆！
+                            <br>您可以在这个界面修改用户名、昵称或是密码，您还可以查看自己所借书籍和即将到期的图书。
+                            <br>请您注意，国家图书馆每本图书的借阅期限为60天，您可以点击“催还数量”查看剩余期限为10天内的图书。
+                            <br>一个账号可以借阅多本相同的图书，点击“借阅数量”后他们会分别列出。
+                            <br>国家图书馆竭诚为您服务！
+                        </p>
+                        <!--                        <p><a href="#" class="btn btn-primary btn-large">Learn more »</a></p>-->
+                        <!--                        <form class="form-search">
+                                                    <input type="text" class="input-medium search-query" id="q">
+                                                    <button type="submit" class="btn score" ng-click="searchBooks()">Search</button>
+                                                </form>-->
+                        <h3 ng-if="token == 0" style="color: #286090"><strong>向您推荐以下图书：</strong></h3>
+                        <h3 ng-if="token == 1" style="color: #286090"><strong>您一共借阅了以下{{currentUser_BorrowBookNum}}本图书：</strong></h3>
+                        <h3 ng-if="token == 2" style="color: #286090"><strong>以下{{currentUser_DueBookNum}}本图书您需要在十天内归还，否则将被扣款！</strong></h3>
+                    </div>
+                    <div class="row-fluid">
+                        <div ng-repeat="book in books track by $index" ng-if="token == 0">
+                            <div class="span4" style="margin-right: 13px;">
+                                <h2>{{book.bookName}}</h2>
+                                <p>{{book.bookAuthor}}&nbsp;&nbsp;&nbsp;{{book.bookPress}}</p>
+                                <div>
+                                    评分&nbsp;&nbsp;<i class="fa fa-heart" ng-repeat="score in getNumber(book.bookScore) track by $index" style="color: #337ab7"></i>
+                                </div>
+                                <p>{{book.bookDescription}}</p>
+                                <p ng-if="!judgeLogin"><a class="btn" ng-click="UserLogoutHint()" style="padding-left: 0px;">我要借阅 »</a></p>
+                                <p ng-if="judgeLogin == 1" ng-click="bookIndex($index)"><a class="btn" style="padding-left: 0px;" 
+                                                                                           data-toggle="modal" data-target="#borrowBook">我要借阅 »</a></p>
+                            </div>
+                        </div>
+                        <div ng-repeat="book in userBorrowBook" ng-if="token == 1 || token == 2">
+                            <div class="span4" style="margin-right: 13px;">
+                                <h2>{{book.book_name}}</h2>
+                                <p>{{book.book_author}}&nbsp;&nbsp;&nbsp;{{book.book_press}}</p>
+                                <div>
+                                    评分&nbsp;&nbsp;<i class="fa fa-heart" ng-repeat="score in getNumber(book.book_score) track by $index" style="color: #337ab7"></i>
+                                </div>
+                                <p>{{book.book_description}}</p>
+                                <!--                                <p><a class="btn" href="#" style="padding-left: 0px;">我要借阅 »</a></p>-->
+                                <p ng-if="!judgeLogin"><a class="btn" ng-click="UserLogoutHint()" style="padding-left: 0px;">我要借阅 »</a></p>
+                                <p ng-if="judgeLogin == 1" ng-click="borrowTimeHint(book.borrow_time)"><a class="btn" style="padding-left: 0px;">借阅日期：{{book.borrow_time}}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+    <center>
+        <p>© Author by Siyuan 2015</p>
+    </center>
+
+    <!--用户注册弹出框-->
+    <div class="modal fade" id="newTypeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> 注册用户</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="StudentNum">学号</label>
+                        <input type="text" ng-model="newStudentNum" id="StudentNum" class="form-control" placeholder="请输入您的学号，注册后可以用学号登录">
+                        <label for="UserName">用户名</label>
+                        <input type="text" ng-model="newUserName" id="UserName" class="form-control" placeholder="请输入您的用户名，注册后用户名会显示在您的主页">
+                        <label for="Password">密码</label>
+                        <input type="password" ng-model="newPassword" id="Password" class="form-control" placeholder="请设定您的密码">
+                        <label for="AgainPassword">重复密码</label>
+                        <input type="password" ng-model="newAgainPassword" id="AgainPassword" class="form-control" placeholder="为确保安全，请再次输入您的密码">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button"  ng-click="add_user()" class="btn btn-primary" data-dismiss="modal">注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--用户登录弹出框-->
+    <div class="modal fade" id="userLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> 用户登录</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="StudentNum">学号</label>
+                        <input type="number" ng-model="LoginStudentNum" id="StudentNum" class="form-control" 
+                               placeholder="请用您的学号登录">
+                        <label for="Password">密码</label>
+                        <input type="password" ng-model="LoginPassword" id="Password" class="form-control" 
+                               placeholder="请输入您的密码">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button"  ng-click="userLogin()" class="btn btn-primary" data-dismiss="modal">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--修改用户基本信息弹出框-->
+    <div class="modal fade" id="alterUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> 基本信息修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="alterUserName">用户名</label>
+                        <input type="text" ng-model="alterUserName" id="alterUserName" class="form-control" 
+                               placeholder="请输入您希望的用户名（昵称）">
+                        <label for="alterUserSex" style="margin-bottom: -8px;">性别</label>
+                        <div class="radio">
+                            <label style="padding-left: 0px;">
+                                我是男生&nbsp;<input type="radio" ng-model="alterUserSex" name="alterUserSex" id="optionsRadios1" value="man" style="width: 15px;height: 15px;margin-left: 0px;" checked>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label style="padding-left: 0px;">
+                                我是女生&nbsp;<input type="radio" ng-model="alterUserSex" name="alterUserSex" id="optionsRadios2" value="woman" style="width: 15px;height: 15px; margin-left: 0px;">
+                            </label>
+                        </div>
+                        <label for="alterUserSchool">您的学院</label>
+                        <input type="text" ng-model="alterUserSchool" id="alterUserSchool" class="form-control" 
+                               placeholder="请输入您的学院信息">
+                        <label for= "alterUserDescription"> 您的简介 </label>
+                        <textarea class="form-control" rows="3" ng-model="alterUserDescription" id="alterUserDescription" placeholder="请输入您的简介，不要超过100个汉字"></textarea>
+                        <label for="alterPhoneNum">电话号码</label>
+                        <input type="number" ng-model="alterPhoneNum" id="alterPhoneNum" class="form-control" 
+                               placeholder="请您输入您的电话号码，方便我们为您推送新书信息">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button"  ng-click="alterUserInfo(current_UserNum)" class="btn btn-primary" data-dismiss="modal">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--修改密码弹出框-->
+    <div class="modal fade" id="alterPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-pencil"></i> 修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="oldPassword">旧密码</label>
+                        <input type="password" ng-model="oldPassword" id="oldPassword" class="form-control" 
+                               placeholder="请输入您现在的密码">
+                        <label for="newPassword">新密码</label>
+                        <input type="password" ng-model="newPassword" id="newPassword" class="form-control" 
+                               placeholder="请输入新密码">
+                        <label for="againNewPassword">重复新密码</label>
+                        <input type="password" ng-model="againNewPassword" id="againNewPassword" class="form-control" 
+                               placeholder="请再次输入新密码">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button"  ng-click="alterPassword(current_UserNum)" class="btn btn-primary" data-dismiss="modal">确认改密</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--验证密码强度弹出框-->
+    <div class="modal fade" id="passwdStrength" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-adjust"></i> 密码强度验证</h4>
+                </div>
+                <div class="modal-body">
+                    <p>经检测，您的密码强度如下：</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                             aria-valuemin="0" aria-valuemax="100" ng-style="myProgressBar">
+                            {{passwdStrengthValue}}%
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  ng-click="testPasswdStrength(current_UserNum)" class="btn btn-primary">开始检测</button>
+                    <button type="button"  ng-click="passwdStrengthHint()" class="btn btn-primary" data-dismiss="modal">如何提升强度？</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--借阅图书弹出框-->
+    <div class="modal fade" id="borrowBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user"></i> 确认借阅信息</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #337ab7;"><strong>您正在借阅的图书信息如下：</strong></p>
+                    <strong>图书编号：</strong>{{books[getBookIndex].bookId}}<br>
+                    <strong>图书名称：</strong>{{books[getBookIndex].bookName}}<br>
+                    <strong>作者：</strong>{{books[getBookIndex].bookAuthor}}<br>
+                    <strong>出版社：</strong>{{books[getBookIndex].bookPress}}<br>
+                    <strong>图书描述：</strong>{{books[getBookIndex].bookDescription}}<br>
+                    <strong>图书评分：</strong>
+                    <i class="fa fa-heart" ng-repeat="score in getNumber(books[getBookIndex].bookScore) track by $index" 
+                       style="color: #337ab7"></i><br>
+                    <strong>图书状态：</strong>{{books[getBookIndex].bookState}}<br>
+                    <strong>所在书架：</strong>{{books[getBookIndex].bookshelfNumber}}<br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消借阅</button>
+                    <button type="button" ng-click="borrowBooks(current_UserNum, books[getBookIndex].bookId)" class="btn btn-primary" data-dismiss="modal">确认借阅</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../lib/jquery-2.1.3/jquery-2.1.3.js"></script> 
+    <script type="text/javascript" src="../../lib/jquery-2.1.3/jquery.min.js"></script> 
+    <script type="text/javascript" src="../../lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="../../lib/bootstrap-3.3.1/js/bootstrap.js"></script>
+
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-route.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-resource.js"></script>
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular.min.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-animate.min.js"></script>
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-touch.min.js"></script>
+
+    <script type="text/javascript" src="../../lib/angular-1.3.3/angular-cookies.js"></script>
+
+    <script type="text/javascript" src="../../lib/TweenMax.min.js"></script>
+
+    <!--slide-->
+    <script type="text/javascript" src="../../website.js"></script>
+
+    <!--reader control-->
+    <script type="text/javascript" src="controller.js"></script>
+    <script type="text/javascript" src="service.js"></script>
+
+</body>
+</html>
